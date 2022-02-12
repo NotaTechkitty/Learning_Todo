@@ -6,6 +6,60 @@ part of 'task.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Task> _$taskSerializer = new _$TaskSerializer();
+
+class _$TaskSerializer implements StructuredSerializer<Task> {
+  @override
+  final Iterable<Type> types = const [Task, _$Task];
+  @override
+  final String wireName = 'Task';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, Task object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'title',
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
+      'status',
+      serializers.serialize(object.status, specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Task deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new TaskBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Task extends Task {
   @override
   final String id;
