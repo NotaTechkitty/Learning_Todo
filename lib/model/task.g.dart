@@ -8,7 +8,7 @@ part of 'task.dart';
 
 class _$Task extends Task {
   @override
-  final int id;
+  final String id;
   @override
   final String title;
   @override
@@ -58,9 +58,9 @@ class _$Task extends Task {
 class TaskBuilder implements Builder<Task, TaskBuilder> {
   _$Task? _$v;
 
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
   String? _title;
   String? get title => _$this._title;
