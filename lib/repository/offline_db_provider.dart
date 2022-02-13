@@ -73,5 +73,5 @@ class OfflineDbProvider {
     return await deleteDatabase(path);
   }
 
-  final String _dbName = "LearningTodo.db";
+  final String _dbName = "Todo.db";
 }

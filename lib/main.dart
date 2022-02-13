@@ -1,17 +1,38 @@
 import 'dart:developer';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:learning_todo_app/model/task.dart';
+import 'package:learning_todo_app/repository/repository.dart';
+import 'package:learning_todo_app/store/action/actions.dart';
+import 'package:learning_todo_app/store/model/state.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_epics/redux_epics.dart';
+import 'package:learning_todo_app/store/middleware/epics.dart';
+import 'package:learning_todo_app/store/reducer/reducer.dart';
 
 void main() {
-  runApp(const TodoApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  final repository = Repository();
+  final store = Store<AppState>(appStateReducer,
+      initialState: AppState.create(),
+      middleware: [EpicMiddleware<AppState>(AppMiddleware(repository))]);
+  runApp(TodoApp(
+    store: store,
+  ));
 }
 
 class TodoApp extends StatelessWidget {
-  const TodoApp({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const TodoApp({required this.store, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ListTaskScreen(),
+    return StoreProvider(
+      store: store,
+      child: const MaterialApp(
+        home: ListTaskScreen(),
+      ),
     );
   }
 }
@@ -26,7 +47,6 @@ class ListTaskScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          log("message1");
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const AddTaskScreen()),
@@ -35,15 +55,15 @@ class ListTaskScreen extends StatelessWidget {
         child: const Text("ADD"),
       ),
       body: Center(
-        child: Column(
-          children: const [
-            Text("data"),
-            Text("data"),
-            Text("data"),
-            Text("data"),
-            Text("data"),
-          ],
-        ),
+        child: StoreConnector<AppState, List<Task>>(
+            converter: (store) => store.state.tasks.toList(),
+            builder: (context, vm) {
+              final int length = vm.length;
+              return ListView.builder(
+                itemCount: length,
+                itemBuilder: (context, index) => Text(vm[index].title),
+              );
+            }),
       ),
     );
   }
@@ -68,19 +88,24 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          log(textController.text);
-          Navigator.pop(context);
-        },
-        child: const Text("ADD"),
-      ),
-      body: Center(
-        child: TextField(
-          controller: textController,
-        ),
-      ),
-    );
+    return StoreConnector<AppState, Store<AppState>>(
+        converter: (store) => store,
+        builder: (context, vm) {
+          return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                vm.dispatch(DoCreateTask(
+                    (update) => update..title = textController.text));
+                Navigator.pop(context);
+              },
+              child: const Text("ADD"),
+            ),
+            body: Center(
+              child: TextField(
+                controller: textController,
+              ),
+            ),
+          );
+        });
   }
 }

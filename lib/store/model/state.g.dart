@@ -10,7 +10,7 @@ class _$AppState extends AppState {
   @override
   final String status;
   @override
-  final BuiltList<dynamic> tasks;
+  final BuiltList<Task> tasks;
 
   factory _$AppState([void Function(AppStateBuilder)? updates]) =>
       (new AppStateBuilder()..update(updates)).build();
@@ -54,10 +54,9 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   String? get status => _$this._status;
   set status(String? status) => _$this._status = status;
 
-  ListBuilder<dynamic>? _tasks;
-  ListBuilder<dynamic> get tasks =>
-      _$this._tasks ??= new ListBuilder<dynamic>();
-  set tasks(ListBuilder<dynamic>? tasks) => _$this._tasks = tasks;
+  ListBuilder<Task>? _tasks;
+  ListBuilder<Task> get tasks => _$this._tasks ??= new ListBuilder<Task>();
+  set tasks(ListBuilder<Task>? tasks) => _$this._tasks = tasks;
 
   AppStateBuilder();
 
