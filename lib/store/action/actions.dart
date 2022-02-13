@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:learning_todo_app/model/task.dart';
 
-part 'middleware_actions.g.dart';
+part 'actions.g.dart';
 
 // Create task
 abstract class DoCreateTask
@@ -42,7 +42,7 @@ abstract class SetGetTasks implements Built<SetGetTasks, SetGetTasksBuilder> {
 }
 // --------------------------
 
-// Get tasks
+// Get delete
 abstract class DoDeleteTask
     implements Built<DoDeleteTask, DoDeleteTaskBuilder> {
   DoDeleteTask._();
@@ -63,3 +63,15 @@ abstract class SetDeleteTask
       _$SetDeleteTask;
 }
 // -------------------------
+
+// set app Status
+
+abstract class SetStatusApp
+    implements Built<SetStatusApp, SetStatusAppBuilder> {
+  SetStatusApp._();
+  String get status;
+  factory SetStatusApp.create({required String status}) =>
+      SetStatusApp((update) => update..status = status);
+  factory SetStatusApp([void Function(SetStatusAppBuilder) updates]) =
+      _$SetStatusApp;
+}

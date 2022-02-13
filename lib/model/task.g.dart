@@ -24,7 +24,7 @@ class _$TaskSerializer implements StructuredSerializer<Task> {
       serializers.serialize(object.title,
           specifiedType: const FullType(String)),
       'status',
-      serializers.serialize(object.status, specifiedType: const FullType(bool)),
+      serializers.serialize(object.status, specifiedType: const FullType(int)),
     ];
 
     return result;
@@ -51,7 +51,7 @@ class _$TaskSerializer implements StructuredSerializer<Task> {
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -66,7 +66,7 @@ class _$Task extends Task {
   @override
   final String title;
   @override
-  final bool status;
+  final int status;
 
   factory _$Task([void Function(TaskBuilder)? updates]) =>
       (new TaskBuilder()..update(updates)).build();
@@ -120,9 +120,9 @@ class TaskBuilder implements Builder<Task, TaskBuilder> {
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
-  bool? _status;
-  bool? get status => _$this._status;
-  set status(bool? status) => _$this._status = status;
+  int? _status;
+  int? get status => _$this._status;
+  set status(int? status) => _$this._status = status;
 
   TaskBuilder();
 

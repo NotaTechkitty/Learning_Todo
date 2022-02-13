@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:built_collection/built_collection.dart';
 import 'package:learning_todo_app/model/task.dart';
 import 'package:learning_todo_app/repository/offline_db_provider.dart';
@@ -16,7 +18,7 @@ class Repository implements AbstractRepository {
     var db = await OfflineDbProvider.provider.database;
     var res = await db.query("Task");
     if (res.isEmpty) {
-      return BuiltList();
+      return BuiltList<Task>([]);
     }
     var list = BuiltList<Task>([]);
     for (var todo in res) {
@@ -46,7 +48,7 @@ class Repository implements AbstractRepository {
   @override
   Future<int> updateTask(Task task) async {
     final int newValue;
-    if (task.status) {
+    if (task.status == 1) {
       newValue = 0;
     } else {
       newValue = 1;

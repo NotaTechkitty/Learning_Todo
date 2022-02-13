@@ -7,9 +7,9 @@ abstract class Task implements Built<Task, TaskBuilder> {
   Task._();
   String get id;
   String get title;
-  bool get status;
+  int get status;
   factory Task.create(
-          {required String id, required String title, required bool status}) =>
+          {required String id, required String title, required int status}) =>
       Task((update) => update
         ..id = id
         ..title = title

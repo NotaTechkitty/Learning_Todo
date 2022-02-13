@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'middleware_actions.dart';
+part of 'actions.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -469,6 +469,83 @@ class SetDeleteTaskBuilder
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$SetStatusApp extends SetStatusApp {
+  @override
+  final String status;
+
+  factory _$SetStatusApp([void Function(SetStatusAppBuilder)? updates]) =>
+      (new SetStatusAppBuilder()..update(updates)).build();
+
+  _$SetStatusApp._({required this.status}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(status, 'SetStatusApp', 'status');
+  }
+
+  @override
+  SetStatusApp rebuild(void Function(SetStatusAppBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  SetStatusAppBuilder toBuilder() => new SetStatusAppBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is SetStatusApp && status == other.status;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, status.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('SetStatusApp')..add('status', status))
+        .toString();
+  }
+}
+
+class SetStatusAppBuilder
+    implements Builder<SetStatusApp, SetStatusAppBuilder> {
+  _$SetStatusApp? _$v;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  SetStatusAppBuilder();
+
+  SetStatusAppBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _status = $v.status;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(SetStatusApp other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$SetStatusApp;
+  }
+
+  @override
+  void update(void Function(SetStatusAppBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$SetStatusApp build() {
+    final _$result = _$v ??
+        new _$SetStatusApp._(
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, 'SetStatusApp', 'status'));
     replace(_$result);
     return _$result;
   }
